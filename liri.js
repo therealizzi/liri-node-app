@@ -1,6 +1,7 @@
 
 var Twitter = require('twitter');
-var keys = require('./keys.js')
+var keys = require('./keys.js');
+var user_input = process.argv[2];
 
 var client = new Twitter ({
 	consumer_key: keys.consumer_key,
@@ -11,16 +12,15 @@ var client = new Twitter ({
 
 console.log(client); 
 
-var params = {screen_name: 'lightningcatchers'};
+var params = {screen_name: 'zeuspowerinc'};
+
 client.get('statuses/user_timeline', params, function(error, tweets, response) {
 	if(!error) {
 		console.log(tweets);
 	}
 });
 
-var path = 'https://api.twitter.com/1.1/statuses/home_timeline.json'
-
-client.get(path, params, callback);
-client.post(path, params, callback);
-client.stream(path, params, callback);
+// client.get(path, params, callback);
+// client.post(path, params, callback);
+// client.stream(path, params, callback);
 
