@@ -3,9 +3,10 @@ var Twitter = require('twitter');
 var Spotify = require('node-spotify-api');
 var Request = require("request")
 var keys = require('./keys.js');
+var operator = process.argv[2];
 var user_input = [];
 
-//Creating user_input array
+//Creates user_input array
 for (var i = 3; i < process.argv.length; i++){
 	user_input.push(process.argv[i].trim());
 };
@@ -33,7 +34,7 @@ var spotify = new Spotify ({
 
 
 //Argv validation
-if(process.argv[2] === "my-tweets"){
+if(operator === "my-tweets"){
 	
 //Setting twitter parameters
 var params = {screen_name: 'zeuspowerinc'};
@@ -44,19 +45,20 @@ var params = {screen_name: 'zeuspowerinc'};
 			for (var i = 0; i < 20; i++){
 
 				//Print data
-				console.log(tweets[i].text);
-				console.log(tweets[i].created_at);		
+				console.log(tweets[i].text + '\n'
+							+tweets[i].created_at);		
 			}
 		}
 	});
 }
 
 
-// //=================== spotify call ====================
+//=================== spotify call ====================
 
+// If no song is provided then the program will default to "The Sign" by Ace of Base.
 
 //Argv validation
-if(process.argv[2] === "spotify-this-song"){
+if(operator === "spotify-this-song"){
 
 	//Use spotify's 'search' method
 	spotify.search({ type: 'track', query: user_input, limit: 1}, function(err, data){
@@ -64,32 +66,34 @@ if(process.argv[2] === "spotify-this-song"){
 			return console.log('Error occured: '+ err);
 		}
 	//Print data
-	console.log("Artist(s): "+data.tracks.items[0].album.artists[0].name);
-	console.log("Song: "+data.tracks.items[0].name);
-	console.log("Preview: "+data.tracks.items[0].album.href);
-	console.log("Album: "+data.tracks.items[0].album.name);
+	console.log("Artist(s): "+data.tracks.items[0].album.artists[0].name+ '\n'
+				+"Song: "+data.tracks.items[0].name+ '\n'
+				+"Preview: "+data.tracks.items[0].album.href+ '\n'
+				+"Album: "+data.tracks.items[0].album.name);
 	});
 }
 
 
 //=================== omdb call ====================
 
+// If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.'
 
 //Argv validation
-if(process.argv[2] === "movie-this") {
+if(operator === "movie-this") {
 
 	//OMDB using 'request' method
 	new Request("http://www.omdbapi.com/?t="+user_input+"&apikey=40e9cece&", function(error, response, data) {
 		if (!error && response.statusCode === 200){
 			var movie = JSON.parse(data);
-			console.log("Title: "+movie.Title);
-			console.log("Year: "+movie.Year);
-			console.log("IMDB Rating: "+movie.imdbRating);
-			console.log("RT Rating: "+movie.Ratings[1].Value);
-			console.log("Country: "+movie.Country);
-			console.log("Language: "+movie.Language);
-			console.log("Plot: "+movie.Plot);
-			console.log("Actors: "+movie.Actors);
+			console.log("Title: "+movie.Title+ '\n'
+						+"Year: "+movie.Year+ '\n'
+						+"IMDB Rating: "+movie.imdbRating+ '\n'
+						+"RT Rating: "+movie.Ratings[1].Value+ '\n'
+						+"Country: "+movie.Country+ '\n'
+						+"Language: "+movie.Language+ '\n'
+						+"Plot: "+movie.Plot+ '\n'
+						+"Actors: "+movie.Actors);
 		}
 	});
 }
+
