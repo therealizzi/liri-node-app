@@ -74,16 +74,22 @@ if(process.argv[2] === "spotify-this-song"){
 
 //=================== omdb call ====================
 
-//OMDB
-// var omdb = new Request("http://www.omdbapi.com/?apikey=40e9cece&?t="+user_input);
 
 //Argv validation
 if(process.argv[2] === "movie-this") {
 
-	new Request("http://www.omdbapi.com/?t="+user_input+"&apikey=40e9cece&", function(error, response, body) {
+	//OMDB using 'request' method
+	new Request("http://www.omdbapi.com/?t="+user_input+"&apikey=40e9cece&", function(error, response, data) {
 		if (!error && response.statusCode === 200){
-			console.log(body);
+			var movie = JSON.parse(data);
+			console.log("Title: "+movie.Title);
+			console.log("Year: "+movie.Year);
+			console.log("IMDB Rating: "+movie.imdbRating);
+			console.log("RT Rating: "+movie.Ratings[1].Value);
+			console.log("Country: "+movie.Country);
+			console.log("Language: "+movie.Language);
+			console.log("Plot: "+movie.Plot);
+			console.log("Actors: "+movie.Actors);
 		}
 	});
 }
-
