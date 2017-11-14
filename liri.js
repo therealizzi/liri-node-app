@@ -1,4 +1,7 @@
-//Global variables
+//=================== global ====================
+
+
+//Variables
 var Twitter = require('twitter');
 var Spotify = require('node-spotify-api');
 var Request = require("request")
@@ -6,7 +9,16 @@ var keys = require('./keys.js');
 var operator = process.argv[2];
 var user_input = [];
 
-//Creates user_input array
+//User input verification
+if(operator === "movie-this" && process.argv[3] === undefined){
+	console.log("Uh-oh!"),
+	user_input.push("Mr. Nobody")
+} else 
+
+if (operator === "spotify-this-song" && process.argv[3] === undefined){
+	user_input.push("The Sign by Ace of Base")
+} else 
+
 for (var i = 3; i < process.argv.length; i++){
 	user_input.push(process.argv[i].trim());
 };
@@ -55,7 +67,6 @@ var params = {screen_name: 'zeuspowerinc'};
 
 //=================== spotify ====================
 
-// If no song is provided then the program will default to "The Sign" by Ace of Base.
 
 //Argv validation
 if(operator === "spotify-this-song"){
@@ -76,7 +87,6 @@ if(operator === "spotify-this-song"){
 
 //=================== omdb ====================
 
-// If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.'
 
 //Argv validation
 if(operator === "movie-this") {
