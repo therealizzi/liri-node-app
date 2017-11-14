@@ -12,7 +12,7 @@ for (var i = 3; i < process.argv.length; i++){
 };
 
 
-//=================== client variables ====================
+//=================== clients ====================
 
 
 //Twitter
@@ -30,7 +30,7 @@ var spotify = new Spotify ({
 });
 
 
-// //=================== twitter call ====================
+//=================== twitter ====================
 
 
 //Argv validation
@@ -53,7 +53,7 @@ var params = {screen_name: 'zeuspowerinc'};
 }
 
 
-//=================== spotify call ====================
+//=================== spotify ====================
 
 // If no song is provided then the program will default to "The Sign" by Ace of Base.
 
@@ -74,7 +74,7 @@ if(operator === "spotify-this-song"){
 }
 
 
-//=================== omdb call ====================
+//=================== omdb ====================
 
 // If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.'
 
