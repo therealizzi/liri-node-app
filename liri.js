@@ -5,7 +5,8 @@
 //Variables
 var Twitter = require('twitter');
 var Spotify = require('node-spotify-api');
-var Request = require("request")
+var Request = require("request");
+var fs = require("fs");
 var keys = require('./keys.js');
 var operator = process.argv[2];
 var user_input = [];
@@ -45,13 +46,13 @@ var spotify = new Spotify ({
 //=================== twitter ====================
 
 
-//Argv validation
+//Tweet operator validation
 if(operator === "my-tweets"){
 	
 //Setting twitter parameters
 var params = {screen_name: 'zeuspowerinc'};
 
-	//Calling to twitter
+	//Calling twitter using 'get' method
 	twitter.get('statuses/user_timeline', params, function(error, tweets, response) {
 		if(!error) {
 			for (var i = 0; i < 20; i++){
@@ -65,13 +66,40 @@ var params = {screen_name: 'zeuspowerinc'};
 }
 
 
+//=================== fs ====================
+
+
+//FS pperator validation
+if(operator === "do-what-it-says") {
+
+	//FS read method for target file "random.txt"
+	fs.readFile("random.txt", 'utf8', function(error, data) {
+		if(error) {
+			return console.log(error);
+		} 
+		console.log(data);
+	
+		var dataArray = data.replace(","," ");
+	
+		console.log(dataArray);
+
+		global.operator = dataArray[0];
+		});
+	};
+
+//// HERE IS THE ISSUE: the operator is still "do-what-it-says", it isn't changing //////
+
+console.log(operator); 
+console.log(user_input);
+
+
 //=================== spotify ====================
 
 
-//Argv validation
+//Spotify operator validation
 if(operator === "spotify-this-song"){
 
-	//Use spotify's 'search' method
+	//Calling spotify using 'search' method
 	spotify.search({ type: 'track', query: user_input, limit: 1}, function(err, data){
 		if (err) {
 			return console.log('Error occured: '+ err);
@@ -88,13 +116,17 @@ if(operator === "spotify-this-song"){
 //=================== omdb ====================
 
 
-//Argv validation
+//OMDB operator validation
 if(operator === "movie-this") {
 
 	//OMDB using 'request' method
 	new Request("http://www.omdbapi.com/?t="+user_input+"&apikey=40e9cece&", function(error, response, data) {
 		if (!error && response.statusCode === 200){
+
+			//Parse data into readable format
 			var movie = JSON.parse(data);
+
+			//Print data
 			console.log("Title: "+movie.Title+ '\n'
 						+"Year: "+movie.Year+ '\n'
 						+"IMDB Rating: "+movie.imdbRating+ '\n'
@@ -108,21 +140,3 @@ if(operator === "movie-this") {
 }
 
 
-//=================== fs ====================
-
-
-var fs = require("fs");
-
-if(operator === "do-what-it-says") {
-
-	fs.readFile("random.txt", 'utf8', function(error, data) {
-		if(error) {
-			return console.log(error);
-		} 
-		console.log(data);
-		var dataArray = data.split(",");
-		for(var i = 0; i < dataArray.length; i++){
-			console.log(dataArray[i]);
-		}
-	});
-}
