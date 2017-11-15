@@ -1,5 +1,16 @@
+//======================= background ========================
 
-//=================== global ====================
+
+//This nodejs code is intended to operate with the
+//following NPM packages installed:
+
+	// "file-system": "^2.2.2",
+    // "node-spotify-api": "^1.0.7",
+    // "request": "^2.83.0",
+    // "twitter": "^1.7.1"
+
+
+//======================= global ========================
 
 
 //Node packages 
@@ -14,7 +25,7 @@ var operator = process.argv[2];
 var user_input = [];
 
 
-//=================== clients ====================
+//======================= clients =======================
 
 
 //Twitter
@@ -77,7 +88,7 @@ if(operator === "do-what-it-says") {
 }
 
 
-//=================== functions ====================
+//===================== functions ======================
 
 
 //Twitter  
@@ -128,26 +139,29 @@ function movieThis() {
 			var movie = JSON.parse(data);
 
 			//Print data
-			console.log("Title: "+movie.Title+ '\n'
-						+"Year: "+movie.Year+ '\n'
-						+"IMDB Rating: "+movie.imdbRating+ '\n'
-						+"RT Rating: "+movie.Ratings[1].Value+ '\n'
-						+"Country: "+movie.Country+ '\n'
-						+"Language: "+movie.Language+ '\n'
-						+"Plot: "+movie.Plot+ '\n'
-						+"Actors: "+movie.Actors);
+			try {	console.log("Title: "+movie.Title+ '\n'
+							+"Year: "+movie.Year+ '\n'
+							+"IMDB Rating: "+movie.imdbRating+ '\n'
+							+"RT Rating: "+movie.Ratings[1].Value+ '\n'
+							+"Country: "+movie.Country+ '\n'
+							+"Language: "+movie.Language+ '\n'
+							+"Plot: "+movie.Plot+ '\n'
+							+"Actors: "+movie.Actors);
+			} catch(err) {
+				console.log("Are you sure that's a movie?");
+			}
 		}
 	});
 }
 
-//FS
+//File source ("FS")
 function doWhatItSays() {
 
 	//FS read method for target file "random.txt"
 	fs.readFile("random.txt", 'utf8', function(error, data) {
 		if(error) {
 			return console.log(error);
-		} 
+		}
 
 		//Break FS data string into array
 		var dataArray = data.split(",");
@@ -168,7 +182,8 @@ function doWhatItSays() {
 		if(operator === "my-tweets"){
 			myTweets()
 		}
-
 	});
 };
 
+
+//========================= end ==========================
