@@ -5,9 +5,9 @@
 //following NPM packages installed:
 
 	// "file-system": "^2.2.2",
-    // "node-spotify-api": "^1.0.7",
-    // "request": "^2.83.0",
-    // "twitter": "^1.7.1"
+   	// "node-spotify-api": "^1.0.7",
+    	// "request": "^2.83.0",
+    	// "twitter": "^1.7.1"
 
 
 //======================= global ========================
