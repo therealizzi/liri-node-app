@@ -84,13 +84,14 @@ if(operator === "do-what-it-says") {
 		console.log(dataArray);
 
 		global.operator = dataArray[0];
+		user_input.push(dataArray[1]);
 		});
 	};
 
 //// HERE IS THE ISSUE: the operator is still "do-what-it-says", it isn't changing //////
 
-console.log(operator); 
-console.log(user_input);
+// console.log(operator); 
+// console.log(user_input);
 
 
 //=================== spotify ====================
@@ -104,11 +105,11 @@ if(operator === "spotify-this-song"){
 		if (err) {
 			return console.log('Error occured: '+ err);
 		}
-	//Print data
-	console.log("Artist(s): "+data.tracks.items[0].album.artists[0].name+ '\n'
-				+"Song: "+data.tracks.items[0].name+ '\n'
-				+"Preview: "+data.tracks.items[0].album.href+ '\n'
-				+"Album: "+data.tracks.items[0].album.name);
+		//Print data
+		console.log("Artist(s): "+data.tracks.items[0].album.artists[0].name+ '\n'
+					+"Song: "+data.tracks.items[0].name+ '\n'
+					+"Preview: "+data.tracks.items[0].album.href+ '\n'
+					+"Album: "+data.tracks.items[0].album.name);
 	});
 }
 
