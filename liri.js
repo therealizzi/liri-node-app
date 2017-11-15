@@ -1,3 +1,4 @@
+
 //=================== global ====================
 
 
@@ -11,12 +12,11 @@ var user_input = [];
 
 //User input verification
 if(operator === "movie-this" && process.argv[3] === undefined){
-	console.log("Uh-oh!"),
 	user_input.push("Mr. Nobody")
 } else 
 
 if (operator === "spotify-this-song" && process.argv[3] === undefined){
-	user_input.push("The Sign by Ace of Base")
+	user_input.push("The Sign Ace of Base")
 } else 
 
 for (var i = 3; i < process.argv.length; i++){
@@ -107,3 +107,22 @@ if(operator === "movie-this") {
 	});
 }
 
+
+//=================== fs ====================
+
+
+var fs = require("fs");
+
+if(operator === "do-what-it-says") {
+
+	fs.readFile("random.txt", 'utf8', function(error, data) {
+		if(error) {
+			return console.log(error);
+		} 
+		console.log(data);
+		var dataArray = data.split(",");
+		for(var i = 0; i < dataArray.length; i++){
+			console.log(dataArray[i]);
+		}
+	});
+}
