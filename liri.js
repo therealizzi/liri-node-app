@@ -83,10 +83,10 @@ if(operator === "do-what-it-says") {
 //Twitter  
 function myTweets() {	
 
-	//Setting twitter get parameters
+	//Set get parameters
 	var params = {screen_name: 'zeuspowerinc'};
 
-	//Calling using 'get' method
+	//Initiate 'get' method
 	twitter.get('statuses/user_timeline', params, function(error, tweets, response) {
 		if(!error) {
 			for (var i = 0; i < 20; i++){
@@ -102,7 +102,7 @@ function myTweets() {
 //Spotify  
 function spotifyThisSong() {
 
-	//Setting spotify search parameters
+	//Set spotify search parameters
 	spotify.search({ type: 'track', query: user_input, limit: 1}, function(err, data){
 		if (err) {
 			return console.log('Error occured: '+ err);
@@ -120,7 +120,7 @@ function spotifyThisSong() {
 //OMDB 
 function movieThis() {
 
-	//Setting ombd request parameters
+	//Set ombd request parameters
 	new Request("http://www.omdbapi.com/?t="+user_input+"&apikey=40e9cece&", function(error, response, data) {
 		if (!error && response.statusCode === 200){
 
@@ -140,7 +140,7 @@ function movieThis() {
 	});
 }
 
-//FS
+//Fs readFiles
 function doWhatItSays() {
 
 	//FS read method for target file "random.txt"
